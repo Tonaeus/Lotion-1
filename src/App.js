@@ -1,5 +1,12 @@
 import { useEffect, useState, useRef } from "react";
-import { BrowserRouter, Routes, Route, useNavigate, Router, useParams } from "react-router-dom";
+import {
+	BrowserRouter,
+	Routes,
+	Route,
+	useNavigate,
+	Router,
+	useParams,
+} from "react-router-dom";
 import uuid from "react-uuid";
 
 import ReactQuill from "react-quill";
@@ -11,103 +18,96 @@ import Main from "./Main";
 function App() {
 	const [show, setShow] = useState(true);
 
-    const [notes, setNotes] = useState(
-        localStorage.notes ? JSON.parse(localStorage.notes) : []
-    );
-    const [activeNote, setActiveNote] = useState(false);
+	const [notes, setNotes] = useState(
+		localStorage.notes ? JSON.parse(localStorage.notes) : []
+	);
+	const [activeNote, setActiveNote] = useState(false);
 
-    useEffect(() => {
-        localStorage.setItem("notes", JSON.stringify(notes));
-    }, [notes]);
+	useEffect(() => {
+		localStorage.setItem("notes", JSON.stringify(notes));
+	}, [notes]);
 
-    const onAddNote = () => {
-        const newNote = {
-            id: uuid(),
-            title: "Untitled",
-            body: "",
-            lastModified: Date.now(),
-        };
+	const onAddNote = () => {
+		const newNote = {
+			id: uuid(),
+			title: "Untitled",
+			body: "",
+			lastModified: "",
+		};
 
-        setNotes([newNote, ...notes]);
-        setActiveNote(newNote.id);
-    };
+		setNotes([newNote, ...notes]);
+		setActiveNote(newNote.id);
+	};
 
-    const onDeleteNote = (noteId) => {
-        setNotes(notes.filter(({ id }) => id !== noteId));
-    };
+	const onDeleteNote = (noteId) => {
+		setNotes(notes.filter(({ id }) => id !== noteId));
+	};
 
-    const onUpdateNote = (updatedNote) => {
-        const updatedNotesArr = notes.map((note) => {
-            if (note.id === updatedNote.id) {
-                return updatedNote;
-            }
+	const onUpdateNote = (updatedNote) => {
+		const updatedNotesArr = notes.map((note) => {
+			if (note.id === updatedNote.id) {
+				return updatedNote;
+			}
 
-            return note;
-        });
+			return note;
+		});
 
-        setNotes(updatedNotesArr);
-    };
+		setNotes(updatedNotesArr);
+	};
 
-    const getActiveNote = () => {
-        return notes.find(({ id }) => id === activeNote);
-    };
+	const getActiveNote = () => {
+		return notes.find(({ id }) => id === activeNote);
+	};
 
-    return (
-            <BrowserRouter>
-
+	return (
+		<BrowserRouter>
 			<Header show={show} setShow={setShow} />
 
 			<main>
-
 				<Sidebar
-				show={ show }
-                notes={notes}
-                onAddNote={onAddNote}
-                onDeleteNote={onDeleteNote}
-                activeNote={activeNote}
-                setActiveNote={setActiveNote}
-            	/>
+					show={show}
+					notes={notes}
+					onAddNote={onAddNote}
+					onDeleteNote={onDeleteNote}
+					activeNote={activeNote}
+					setActiveNote={setActiveNote}
+				/>
 
 				<div className="editor">
-					{/* <div className="control">
-                        <div className="left titleDate">
-                            <input></input>
-                            <input type="datetime-local"></input>
-                        </div>
-                        <div className="right">
-                            <SaveEdit></SaveEdit>
-                            <Delete></Delete>
-                        </div>
-                    </div>
-                    <Editor></Editor> */}
-
-					
-						<Routes>
-							<Route path="/" element={<Default activeNote={getActiveNote()} />}></Route>
-							<Route path="/edit" element={<Editor show={show}/>}></Route>
-							<Route path="/notes" element={<Main activeNote={getActiveNote()} onUpdateNote={onUpdateNote} onDeleteNote={onDeleteNote} />}></Route>
-                            <Route path="/notes/:pageId" element={<Test />}></Route>
-						</Routes>
-					
-			</div>
+					<Routes>
+						<Route
+							path="/"
+							element={<Default activeNote={getActiveNote()} />}
+						></Route>
+						<Route path="/edit" element={<Editor show={show} />}></Route>
+						<Route
+							path="/notes"
+							element={
+								<Main
+									activeNote={getActiveNote()}
+									onUpdateNote={onUpdateNote}
+									onDeleteNote={onDeleteNote}
+								/>
+							}
+						></Route>
+						<Route path="/notes/:pageId" element={<Test />}></Route>
+					</Routes>
+				</div>
 			</main>
-
-		
-            </BrowserRouter>
-    );
+		</BrowserRouter>
+	);
 }
 
-function Test () {
-    const {userID} = useParams();
-    return <><p>
-        
-        TESTING
-        </p></>;
+function Test() {
+	const { userID } = useParams();
+	return (
+		<>
+			<p>TESTING</p>
+		</>
+	);
 }
 
-
-
-const Default = ({activeNote}) => {
+const Default = ({ activeNote }) => {
 	const buttonRef = useRef(null);
 
 	const navigate = useNavigate();
@@ -120,22 +120,22 @@ const Default = ({activeNote}) => {
 	};
 
 	useEffect(() => {
-        navigate(`/notes`);
-    }, []);
+		navigate(`/notes`);
+	}, []);
 
-	if (!activeNote) { 
+	if (!activeNote) {
 		navigate(`/notes`);
 	}
 
-
-
-	return (<>
-		<h1>Select a note or Create a new note</h1>
-		<button className="save" onClick={handleClick} ref={buttonRef}>
+	return (
+		<>
+			<h1>Select a note or Create a new note</h1>
+			<button className="save" onClick={handleClick} ref={buttonRef}>
 				TEST
 			</button>
-	</>);
-}
+		</>
+	);
+};
 
 //////////////////
 
@@ -152,11 +152,7 @@ const Editor = () => {
 //////////////////
 
 function Layout() {
-    return (
-        <>
-        
-        </>
-    );
+	return <></>;
 }
 
 export default App;

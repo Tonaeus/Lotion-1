@@ -25,7 +25,7 @@ a {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Navigation Bar */
+/* Header */
 
 nav {
   display: flex;
@@ -87,7 +87,7 @@ main {
   display: flex;
   flex-direction: column;
   width: 250px;
-
+  flex-shrink: 0;
   height: calc(100vh - 50px);
 }
 
@@ -132,8 +132,6 @@ main {
 
 /* Editor */
 
-
-
 .quill {
   display: flex;
   flex-direction: column;
@@ -148,25 +146,6 @@ main {
   min-width: 0;
 }
 
-.control {
-  display: flex;
-  flex-direction: row;
-  height: 75px;
-}
-
-.titleDate {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 30%;
-}
-
-.pageNav {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-}
-
 /* Toolbar */
 
 .toolbar {
@@ -177,26 +156,5 @@ main {
   width: 100%;
 }
 
-/* TMP note */
 
 
-.app-main-note-edit {
-  padding: 25px;
-}
-
-.app-main-note-edit input,
-textarea {
-  display: block;
-  border: 1px solid #ddd;
-  margin-bottom: 20px;
-  width: 100%;
-  height: calc(50vh - 130px);
-  padding: 10px;
-  resize: none;
-  font-size: inherit;
-  font-family: inherit;
-}
-.app-main-note-edit input {
-  height: 50px;
-  font-size: 2rem;
-}

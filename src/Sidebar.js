@@ -8,9 +8,21 @@ function Sidebar({
 }) {
 	const sortedNotes = notes.sort((a, b) => b.lastModified - a.lastModified);
 
-	const clickHandler = () => {
-		onAddNote();
-	}
+	const options = {
+		year: "numeric",
+		month: "long",
+		day: "numeric",
+		hour: "numeric",
+		minute: "numeric",
+	};
+
+	const formatDate = (when) => {
+		const formatted = new Date(when).toLocaleString("en-US", options);
+		if (formatted === "Invalid Date") {
+			return "";
+		}
+		return formatted;
+	};
 
 	return (
 		<>
@@ -18,7 +30,7 @@ function Sidebar({
 				<div className="menuBar">
 					<div className="notes">
 						<h1>Notes</h1>
-						<button onClick={clickHandler}>Add</button>
+						<button onClick={onAddNote}>Add</button>
 					</div>
 					<div className="selector">
 						{sortedNotes.map(({ id, title, body, lastModified }, i) => (
@@ -32,13 +44,9 @@ function Sidebar({
 									<button onClick={(e) => onDeleteNote(id)}>Delete</button>
 								</div>
 
-								<p>{body && body.substr(0, 100) + "..."}</p>
+								<p>{body.substr(0, 20) + "..."}</p>
 								<small className="note-meta">
-									Last Modified{" "}
-									{new Date(lastModified).toLocaleDateString("en-GB", {
-										hour: "2-digit",
-										minute: "2-digit",
-									})}
+									{formatDate(lastModified)}
 								</small>
 							</div>
 						))}
