@@ -4,12 +4,8 @@ import {
 	Routes,
 	Route,
 	useNavigate,
-	Router,
-	useParams,
 } from "react-router-dom";
 import uuid from "react-uuid";
-
-import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
@@ -79,7 +75,6 @@ function App() {
 							path="/"
 							element={<Default activeNote={getActiveNote()} />}
 						></Route>
-						<Route path="/edit" element={<Editor show={show} />}></Route>
 						<Route
 							path="/notes"
 							element={
@@ -90,20 +85,17 @@ function App() {
 								/>
 							}
 						></Route>
-						<Route path="/notes/:pageId" element={<Test />}></Route>
+						<Route path="/notes/:pageId" element={
+								<Main
+									activeNote={getActiveNote()}
+									onUpdateNote={onUpdateNote}
+									onDeleteNote={onDeleteNote}
+								/>
+							}></Route>
 					</Routes>
 				</div>
 			</main>
 		</BrowserRouter>
-	);
-}
-
-function Test() {
-	const { userID } = useParams();
-	return (
-		<>
-			<p>TESTING</p>
-		</>
 	);
 }
 
@@ -136,23 +128,5 @@ const Default = ({ activeNote }) => {
 		</>
 	);
 };
-
-//////////////////
-
-const Editor = () => {
-	const [value, setValue] = useState("");
-
-	return (
-		<>
-			<ReactQuill theme="snow" value={value} onChange={setValue}></ReactQuill>
-		</>
-	);
-};
-
-//////////////////
-
-function Layout() {
-	return <></>;
-}
 
 export default App;
