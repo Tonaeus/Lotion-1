@@ -34,6 +34,12 @@ const Main = ({ activeNote, onUpdateNote, onDeleteNote }) => {
 			<div className="no-active-note">Select a note, or create a new one.</div>
 		);
 
+	const onDelete = (id) => {
+		const answer = window.confirm("Are you sure?");
+		if (answer) {
+			onDeleteNote(id)
+		}
+	}
 
 	return (
 		<>
@@ -55,7 +61,7 @@ const Main = ({ activeNote, onUpdateNote, onDeleteNote }) => {
 				</div>
 				<div className="right">
 					<button onClick={onSave}>Save</button>
-					<button onClick={() => onDeleteNote(activeNote.id)}>Delete</button>
+					<button onClick={() => onDelete(activeNote.id)}>Delete</button>
 				</div>
 			</div>
 			<div className="main-body">
