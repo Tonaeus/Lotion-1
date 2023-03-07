@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
+import { useNavigate } from "react-router-dom";
 
 const Main = ({ activeNote, onUpdateNote, onDeleteNote }) => {
 	const [title, setTitle] = useState("");
@@ -10,9 +11,16 @@ const Main = ({ activeNote, onUpdateNote, onDeleteNote }) => {
 		if (activeNote) {
 			setTitle(activeNote.title);
 			setBody(activeNote.body);
-			setDate((new Date().toISOString()).slice(0, 16));
+			setDate(new Date().toISOString().slice(0, 16));
 		}
 	}, [activeNote]);
+
+	const navigate = useNavigate();
+
+	if (!activeNote)
+		return (
+			<div className="no-active-note">Select a note, or create a new one.</div>
+		);
 
 	const onSave = () => {
 		onUpdateNote({
@@ -29,17 +37,13 @@ const Main = ({ activeNote, onUpdateNote, onDeleteNote }) => {
 		});
 	};
 
-	if (!activeNote)
-		return (
-			<div className="no-active-note">Select a note, or create a new one.</div>
-		);
-
 	const onDelete = (id) => {
 		const answer = window.confirm("Are you sure?");
 		if (answer) {
-			onDeleteNote(id)
+			onDeleteNote(id);
+			navigate(`/notes`);
 		}
-	}
+	};
 
 	return (
 		<>

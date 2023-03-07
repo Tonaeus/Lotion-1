@@ -1,7 +1,10 @@
+import { useNavigate } from "react-router-dom";
+import uuid from "react-uuid";
+
 function Sidebar({
 	show,
 	notes,
-	onAddNote,
+	setNotes,
 	onDeleteNote,
 	activeNote,
 	setActiveNote,
@@ -24,6 +27,26 @@ function Sidebar({
 		return formatted;
 	};
 
+	const navigate = useNavigate();
+
+	const onAddNote = () => {
+		const newNote = {
+			id: uuid(),
+			title: "Untitled",
+			body: "",
+			lastModified: "",
+		};
+
+		setNotes([newNote, ...notes]);
+		setActiveNote(newNote.id);
+		navigate(`/notes/${newNote.id}/edit`);
+	};
+
+	const handleClick = (id) => {
+		setActiveNote(id);
+		navigate(`/notes/${id}`);
+	}
+
 	return (
 		<>
 			{show && (
@@ -37,7 +60,7 @@ function Sidebar({
 							<div
                             key={id}
 								className={`app-sidebar-note ${id === activeNote && "active"}`}
-								onClick={() => setActiveNote(id)}
+								onClick={() => handleClick(id)}
 							>
 								<div className="sidebar-note-title">
 									<strong>{title}</strong>

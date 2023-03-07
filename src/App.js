@@ -5,7 +5,6 @@ import {
 	Route,
 	useNavigate,
 } from "react-router-dom";
-import uuid from "react-uuid";
 import "react-quill/dist/quill.snow.css";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
@@ -22,18 +21,6 @@ function App() {
 	useEffect(() => {
 		localStorage.setItem("notes", JSON.stringify(notes));
 	}, [notes]);
-
-	const onAddNote = () => {
-		const newNote = {
-			id: uuid(),
-			title: "Untitled",
-			body: "",
-			lastModified: "",
-		};
-
-		setNotes([newNote, ...notes]);
-		setActiveNote(newNote.id);
-	};
 
 	const onDeleteNote = (noteId) => {
 		setNotes(notes.filter(({ id }) => id !== noteId));
@@ -63,7 +50,7 @@ function App() {
 				<Sidebar
 					show={show}
 					notes={notes}
-					onAddNote={onAddNote}
+					setNotes={setNotes}
 					onDeleteNote={onDeleteNote}
 					activeNote={activeNote}
 					setActiveNote={setActiveNote}
