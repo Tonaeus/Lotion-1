@@ -72,7 +72,14 @@ function App() {
 								/>
 							}
 						></Route>
-						<Route path="/notes/:pageId" element={
+                        <Route path="/notes/:pageId" element={
+								<Main
+									activeNote={getActiveNote()}
+									onUpdateNote={onUpdateNote}
+									onDeleteNote={onDeleteNote}
+								/>
+							}></Route>
+						<Route path="/notes/:pageId/edit" element={
 								<Main
 									activeNote={getActiveNote()}
 									onUpdateNote={onUpdateNote}
