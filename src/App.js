@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import {
 	BrowserRouter,
 	Routes,
@@ -54,6 +54,7 @@ function App() {
 					onDeleteNote={onDeleteNote}
 					activeNote={activeNote}
 					setActiveNote={setActiveNote}
+                    onUpdateNote={onUpdateNote}
 				/>
 
 				<div className="editor">
@@ -72,14 +73,14 @@ function App() {
 								/>
 							}
 						></Route>
-                        <Route path="/notes/:pageId" element={
+                        <Route path="/notes/:tony" element={
 								<Main
 									activeNote={getActiveNote()}
 									onUpdateNote={onUpdateNote}
 									onDeleteNote={onDeleteNote}
 								/>
 							}></Route>
-						<Route path="/notes/:pageId/edit" element={
+						<Route path="/notes/:currId/:mode" element={
 								<Main
 									activeNote={getActiveNote()}
 									onUpdateNote={onUpdateNote}
@@ -93,34 +94,12 @@ function App() {
 	);
 }
 
-const Default = ({ activeNote }) => {
-	const buttonRef = useRef(null);
-
+const Default = () => {
 	const navigate = useNavigate();
-
-	const handleClick = () => {
-		buttonRef.current.blur();
-
-		console.log("Works");
-		navigate(`/edit`);
-	};
 
 	useEffect(() => {
 		navigate(`/notes`);
 	}, []);
-
-	if (!activeNote) {
-		navigate(`/notes`);
-	}
-
-	return (
-		<>
-			<h1>Select a note or Create a new note</h1>
-			<button className="save" onClick={handleClick} ref={buttonRef}>
-				TEST
-			</button>
-		</>
-	);
 };
 
 export default App;

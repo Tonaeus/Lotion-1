@@ -8,8 +8,10 @@ function Sidebar({
 	onDeleteNote,
 	activeNote,
 	setActiveNote,
+	onUpdateNote
 }) {
 	const sortedNotes = notes.sort((a, b) => b.lastModified - a.lastModified);
+		
 
 	const options = {
 		year: "numeric",
@@ -67,7 +69,7 @@ function Sidebar({
 									<button onClick={(e) => onDeleteNote(id)}>Delete</button>
 								</div>
 
-								<p>{body.substr(0, 20) + "..."}</p>
+								<p>{body.substr(0, 20).replace(/<[^>]+>/g, '') + "..."}</p>
 								<small className="note-meta">
 									{formatDate(lastModified)}
 								</small>
