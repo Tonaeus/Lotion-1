@@ -84,6 +84,7 @@ const Main = ({ activeNote, onUpdateNote, onDeleteNote, setEdit }) => {
 						<input
 							type="text"
 							className="title"
+							placeholder=""
 							value={title}
 							onChange={(e) => setTitle(e.target.value)}
 							autoFocus

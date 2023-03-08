@@ -14,17 +14,13 @@ a {
 	color: inherit;
 	text-decoration: none;
 }
-
 #root {
 	display: flex;
 	flex-direction: column;
-	/* background-color: aqua; */
 	width: 100vw;
 	height: 100vh;
-
 	max-width: 100vw;
 	max-height: 100vh;
-
 	font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -35,33 +31,27 @@ nav {
 	justify-content: center;
 	height: 50px;
 }
-
 .left,
 .right {
 	flex: 1;
 }
-
 .left {
 	display: flex;
 	justify-content: start;
 }
-
 .right {
 	display: flex;
 	justify-content: end;
 }
-
 .center {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 }
-
 h5 {
 	color: #999;
 }
-
 .toggle {
 	display: flex;
 	justify-content: center;
@@ -76,15 +66,6 @@ h5 {
 	background-color: lightgray;
 }
 
-/* Main Body */
-
-main {
-	display: flex;
-	flex-direction: row;
-	flex-grow: 1;
-	/* background-color: lightsalmon; */
-}
-
 /* Sidebar */
 
 .menuBar {
@@ -95,7 +76,6 @@ main {
 	height: calc(100vh - 50px);
 	border-right: 1px solid lightgray;
 }
-
 .notes {
 	display: flex;
 	flex-direction: row;
@@ -104,14 +84,12 @@ main {
 	border-top: 1px solid lightgray;
 	border-bottom: 1px solid lightgray;
 }
-
 .selector {
 	display: flex;
 	flex-direction: column;
 	height: calc(100vh - 50px);
 	overflow-y: auto;
 }
-
 .sidebar-note-title {
 	display: flex;
 	justify-content: space-between;
@@ -135,7 +113,6 @@ main {
 .app-sidebar-note small {
 	color: #999;
 }
-
 .app-sidebar-note:hover {
 	background: #ddd;
 }
@@ -144,7 +121,6 @@ main {
 	background: #08c;
 	color: white;
 }
-
 .block-title {
 	font-size: 20px;
 	padding-bottom: 3px;
@@ -153,20 +129,17 @@ main {
 	white-space: nowrap;
 	text-overflow: ellipsis;
 }
-
 .add-note {
 	display: flex;
 	flex-grow: 0;
 	height: 50px;
 	width: 50px;
 }
-
 .note-button {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
-
 .bar-label {
 	display: flex;
 	padding-left: 15px;
@@ -174,52 +147,56 @@ main {
 	align-items: center;
 	font-size: 25px;
 }
+.block-body {
+	width: 220px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
 
-/* Editor */
+/* Main Body */
 
+main {
+	display: flex;
+	flex-direction: row;
+	flex-grow: 1;
+}
 .quill {
 	display: flex;
 	flex-direction: column;
 	flex-grow: 1;
 }
-
 .editor {
 	display: flex;
 	flex-direction: column;
 	flex-grow: 1;
-	/* background-color: red; */
 	min-width: 0;
 	height: calc(100vh - 50px);
 }
-
-/* Toolbar */
-
 .toolbar {
 	display: flex;
 	flex-direction: row;
-	/* background-color: magenta; */
 	height: 75px;
 	width: 100%;
 	border-top: 1px solid lightgray;
 }
-
 .toolbar2 {
 	display: flex;
 	flex-direction: row;
-	/* background-color: magenta; */
 	height: 75px;
 	width: 100%;
 	border-top: 1px solid lightgray;
 	border-bottom: 1px solid lightgray;
 }
-
 .editingBody {
 	display: flex;
 	flex-direction: column;
 	height: calc(100vh - 125px);
 	min-width: 0;
 }
-
+.ql-editor {
+	max-height: calc(100vh - 177px);
+}
 .ql-toolbar.ql-snow {
 	border-left: none !important;
 	height: 50px;
@@ -229,12 +206,10 @@ main {
 .ql-formats {
 	height: 24px;
 }
-
 .ql-container.ql-snow {
 	border-left: none !important;
 	max-height: calc(100% - 50px);
 }
-
 .toolbar-input {
 	display: flex;
 	flex-direction: column;
@@ -243,42 +218,30 @@ main {
 	justify-content: center;
 	padding-bottom: 5px;
 }
-
 .toolbar-display {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	padding-bottom: 5px;
 }
-
 .toolbar-button {
 	height: 75px;
 	width: 75px;
 }
-
 .title {
 	height: 40px;
 	width: 500px;
 	font-size: 30px;
 	border: none;
 }
-  .title:focus,
-  input:focus {
+.title:focus,
+input:focus {
 	outline: none;
 }
-
 .date {
 	display: flex;
 	width: 250px;
 	border: none;
-}
-
-.btn {
-	background-color: white;
-	border: none;
-}
-.btn:hover {
-	background-color: lightgray;
 }
 .no-active-note {
 	display: flex;
@@ -288,7 +251,6 @@ main {
 	color: #999;
 	border-top: 1px solid lightgray;
 }
-
 .main-body {
 	display: flex;
 	flex-direction: column;
@@ -298,22 +260,19 @@ main {
 	padding: 15px;
 	word-wrap: break-word;
 }
-
 .disabled-field {
 	pointer-events: none;
 }
-
 .date-display {
 	padding-left: 5px;
 }
 
-.ql-editor {
-	max-height: calc(100vh - 177px);
-}
+/* Others */
 
-.block-body {
-	width: 220px;
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
+.btn {
+	background-color: white;
+	border: none;
+}
+.btn:hover {
+	background-color: lightgray;
 }

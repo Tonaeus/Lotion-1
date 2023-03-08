@@ -36,7 +36,7 @@ function Sidebar({
 			if (answer) {
 				const newNote = {
 					id: uuid(),
-					title: "Untitled",
+					title: "",
 					body: "",
 					lastModified: "",
 				};
@@ -48,7 +48,7 @@ function Sidebar({
 		} else {
 			const newNote = {
 				id: uuid(),
-				title: "Untitled",
+				title: "",
 				body: "",
 				lastModified: "",
 			};
