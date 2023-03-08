@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import { useNavigate, useParams } from "react-router-dom";
 
-const Main = ({ activeNote, onUpdateNote, onDeleteNote }) => {
+const Main = ({ activeNote, onUpdateNote, onDeleteNote, setEdit }) => {
 	const [title, setTitle] = useState("");
 	const [body, setBody] = useState("");
 	const [date, setDate] = useState("");
@@ -12,8 +12,7 @@ const Main = ({ activeNote, onUpdateNote, onDeleteNote }) => {
 			setTitle(activeNote.title);
 			setBody(activeNote.body);
 			setDate(new Date().toISOString().slice(0, 16));
-		}
-		else {
+		} else {
 			navigate(`/notes`);
 		}
 	}, [activeNote]);
@@ -23,7 +22,9 @@ const Main = ({ activeNote, onUpdateNote, onDeleteNote }) => {
 
 	if (!activeNote)
 		return (
-			<div className="no-active-note"><h1>Select a note or Create a new note</h1></div>
+			<div className="no-active-note">
+				<h1>Select a note or Create a new note</h1>
+			</div>
 		);
 
 	const onSave = () => {
@@ -34,6 +35,7 @@ const Main = ({ activeNote, onUpdateNote, onDeleteNote }) => {
 			lastModified: date,
 		});
 		navigate(`/notes/${activeNote.id}`);
+		setEdit(false);
 	};
 
 	const onDelete = (id) => {
@@ -41,12 +43,14 @@ const Main = ({ activeNote, onUpdateNote, onDeleteNote }) => {
 		if (answer) {
 			onDeleteNote(id);
 			navigate(`/notes`);
+			setEdit(false);
 		}
 	};
 
 	const onEdit = () => {
 		navigate(`/notes/${activeNote.id}/edit`);
-	}
+		setEdit(true);
+	};
 
 	const options = {
 		year: "numeric",
@@ -67,11 +71,10 @@ const Main = ({ activeNote, onUpdateNote, onDeleteNote }) => {
 	const formatTitle = (title) => {
 		if (title.length === 0) {
 			return "Untitled";
-		}
-		else {
+		} else {
 			return title;
 		}
-	}
+	};
 
 	if (currId && mode) {
 		return (
@@ -93,8 +96,15 @@ const Main = ({ activeNote, onUpdateNote, onDeleteNote }) => {
 						/>
 					</div>
 					<div className="right">
-						<button className="toolbar-button btn" onClick={onSave}>Save</button>
-						<button className="toolbar-button btn" onClick={() => onDelete(activeNote.id)}>Delete</button>
+						<button className="toolbar-button btn" onClick={onSave}>
+							Save
+						</button>
+						<button
+							className="toolbar-button btn"
+							onClick={() => onDelete(activeNote.id)}
+						>
+							Delete
+						</button>
 					</div>
 				</div>
 				<div className="editingBody">
@@ -108,38 +118,42 @@ const Main = ({ activeNote, onUpdateNote, onDeleteNote }) => {
 				</div>
 			</>
 		);
-	}
-	else {
+	} else {
 		return (
 			<>
 				<div className="toolbar2">
 					<div className="left toolbar-display">
 						<div className="left toolbar-input disabled-field">
-						<input
-							type="text"
-							className="title"
-							value={formatTitle(activeNote.title)}
-							onChange={(e) => setTitle(e.target.value)}
-						/>
-						<small className="note-meta date-display">
-							{formatDate(activeNote.lastModified)}
-						</small>
+							<input
+								type="text"
+								className="title"
+								value={formatTitle(activeNote.title)}
+								onChange={(e) => setTitle(e.target.value)}
+							/>
+							<small className="note-meta date-display">
+								{formatDate(activeNote.lastModified)}
+							</small>
+						</div>
 					</div>
-					</div>
-					
+
 					<div className="right">
-						<button className="toolbar-button btn" onClick={onEdit}>Edit</button>
-						<button className="toolbar-button btn" onClick={() => onDelete(activeNote.id)}>Delete</button>
+						<button className="toolbar-button btn" onClick={onEdit}>
+							Edit
+						</button>
+						<button
+							className="toolbar-button btn"
+							onClick={() => onDelete(activeNote.id)}
+						>
+							Delete
+						</button>
 					</div>
 				</div>
 				<div className="main-body">
-				<div dangerouslySetInnerHTML={{__html: body}}></div>
+					<div dangerouslySetInnerHTML={{ __html: body }}></div>
 				</div>
 			</>
 		);
 	}
-
-
 };
 
 export default Main;

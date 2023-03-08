@@ -7,6 +7,7 @@ import Main from "./Main";
 
 function App() {
 	const [show, setShow] = useState(true);
+	const [edit, setEdit] = useState(false);
 
 	const [notes, setNotes] = useState(
 		localStorage.notes ? JSON.parse(localStorage.notes) : []
@@ -50,6 +51,8 @@ function App() {
 					activeNote={activeNote}
 					setActiveNote={setActiveNote}
 					onUpdateNote={onUpdateNote}
+					edit={edit}
+					setEdit={setEdit}
 				/>
 
 				<div className="editor">
@@ -65,6 +68,7 @@ function App() {
 									activeNote={getActiveNote()}
 									onUpdateNote={onUpdateNote}
 									onDeleteNote={onDeleteNote}
+									setEdit={setEdit}
 								/>
 							}
 						></Route>
@@ -75,6 +79,7 @@ function App() {
 									activeNote={getActiveNote()}
 									onUpdateNote={onUpdateNote}
 									onDeleteNote={onDeleteNote}
+									setEdit={setEdit}
 								/>
 							}
 						></Route>
@@ -85,6 +90,7 @@ function App() {
 									activeNote={getActiveNote()}
 									onUpdateNote={onUpdateNote}
 									onDeleteNote={onDeleteNote}
+									setEdit={setEdit}
 								/>
 							}
 						></Route>
