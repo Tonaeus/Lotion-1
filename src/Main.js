@@ -95,6 +95,7 @@ const Main = ({ activeNote, setActive, onUpdateNote, onDeleteNote }) => {
 						placeholder="Your Note Here"
 						value={body}
 						onChange={setBody}
+						scrollingContainer={true}
 					/>
 				</div>
 			</>
