@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import { useNavigate, useParams } from "react-router-dom";
 
-const Main = ({ activeNote, setActive, onUpdateNote, onDeleteNote }) => {
+const Main = ({ activeNote, onUpdateNote, onDeleteNote }) => {
 	const [title, setTitle] = useState("");
 	const [body, setBody] = useState("");
 	const [date, setDate] = useState("");
@@ -64,6 +64,15 @@ const Main = ({ activeNote, setActive, onUpdateNote, onDeleteNote }) => {
 		return formatted;
 	};
 
+	const formatTitle = (title) => {
+		if (title.length === 0) {
+			return "Untitled";
+		}
+		else {
+			return title;
+		}
+	}
+
 	if (currId && mode) {
 		return (
 			<>
@@ -92,10 +101,9 @@ const Main = ({ activeNote, setActive, onUpdateNote, onDeleteNote }) => {
 					<ReactQuill
 						id="body"
 						theme="snow"
-						placeholder="Your Note Here"
+						placeholder="Write your note here"
 						value={body}
 						onChange={setBody}
-						scrollingContainer={true}
 					/>
 				</div>
 			</>
@@ -110,7 +118,7 @@ const Main = ({ activeNote, setActive, onUpdateNote, onDeleteNote }) => {
 						<input
 							type="text"
 							className="title"
-							value={activeNote.title}
+							value={formatTitle(activeNote.title)}
 							onChange={(e) => setTitle(e.target.value)}
 						/>
 						<small className="note-meta date-display">

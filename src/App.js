@@ -5,7 +5,6 @@ import Header from "./Header";
 import Sidebar from "./Sidebar";
 import Main from "./Main";
 
-
 function App() {
 	const [show, setShow] = useState(true);
 
@@ -17,10 +16,6 @@ function App() {
 	useEffect(() => {
 		localStorage.setItem("notes", JSON.stringify(notes));
 	}, [notes]);
-
-	// useEffect(() => {
-	// 	updateId();
-	// }, [activeNote]);
 
 	const onDeleteNote = (noteId) => {
 		setNotes(notes.filter(({ id }) => id !== noteId));
@@ -42,14 +37,6 @@ function App() {
 		return notes.find(({ id }) => id === activeNote);
 	};
 
-	// const updateId = () => {
-	// 	const updatedNotesArr = notes.map((note, i) => {
-	// 		return { ...note, id: i + 1 };
-	// 	});
-	// 	setNotes(updatedNotesArr);
-		
-	// };
-
 	return (
 		<BrowserRouter>
 			<Header show={show} setShow={setShow} />
@@ -63,7 +50,6 @@ function App() {
 					activeNote={activeNote}
 					setActiveNote={setActiveNote}
 					onUpdateNote={onUpdateNote}
-				
 				/>
 
 				<div className="editor">
@@ -77,10 +63,8 @@ function App() {
 							element={
 								<Main
 									activeNote={getActiveNote()}
-									setActiveNote={setActiveNote}
 									onUpdateNote={onUpdateNote}
 									onDeleteNote={onDeleteNote}
-									
 								/>
 							}
 						></Route>
@@ -89,10 +73,8 @@ function App() {
 							element={
 								<Main
 									activeNote={getActiveNote()}
-									setActiveNote={setActiveNote}
 									onUpdateNote={onUpdateNote}
 									onDeleteNote={onDeleteNote}
-									
 								/>
 							}
 						></Route>
@@ -101,7 +83,6 @@ function App() {
 							element={
 								<Main
 									activeNote={getActiveNote()}
-									setActiveNote={setActiveNote}
 									onUpdateNote={onUpdateNote}
 									onDeleteNote={onDeleteNote}
 								/>

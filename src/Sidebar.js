@@ -6,7 +6,7 @@ function Sidebar({
 	notes,
 	setNotes,
 	activeNote,
-	setActiveNote,
+	setActiveNote
 }) {
 	const sortedNotes = notes.sort((a, b) => b.lastModified - a.lastModified);
 		
@@ -37,23 +37,32 @@ function Sidebar({
 		};
 		setNotes([newNote, ...notes]);
 		setActiveNote(newNote.id);
-		// navigate(`/notes/${1}/edit`);
 		navigate(`/notes/${newNote.id}/edit`);
 	};
 
 	const handleClick = (id) => {
+		// const answer = window.confirm("Are you sure?");
+		// if (answer) {
+		// 	setActiveNote(id);
+		// 	navigate(`/notes/${id}`);
+		// }
 		setActiveNote(id);
 		navigate(`/notes/${id}`);
-		console.log(activeNote);
+	}
+
+	const formatTitle = (title) => {
+		if (title.length === 0) {
+			return "Untitled";
+		}
+		else {
+			return title;
+		}
 	}
 
 	const formatBody = (body) => {
 		const plainBody = body.replace(/<[^>]+>/g, '');
 		if (plainBody.length === 0) {
 			return "...";
-		}
-		else if (plainBody.length > 12) {
-			return plainBody.slice(0, 12) + "...";
 		}
 		else {
 			return plainBody;
@@ -71,21 +80,21 @@ function Sidebar({
 						</div>
 					</div>
 					<div className="selector">
-						{sortedNotes.map(({ id, title, body, lastModified }, i) => (
+						{sortedNotes.map(({ id, title, body, lastModified }) => (
 							<div
                             key={id}
 								className={`app-sidebar-note ${id === activeNote && "active"}`}
 								onClick={() => handleClick(id)}
 							>
 								<div className="sidebar-note-title">
-									<strong className="block-title">{title}</strong>
+									<strong className="block-title">{formatTitle(title)}</strong>
 									{/* <button onClick={(e) => onDeleteNote(id, i)}>Delete</button> */}
 								</div>
 								<small className="note-meta">
 									{formatDate(lastModified)}
 								</small>
 
-								<p>{formatBody(body)}</p>
+								<p className="block-body">{formatBody(body)}</p>
 							</div>
 						))}
 					</div>
