@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import { useNavigate, useParams } from "react-router-dom";
 
-const Main = ({ activeNote, onUpdateNote, onDeleteNote }) => {
+const Main = ({ activeNote, onUpdateNote, onDeleteNote, updateId }) => {
 	const [title, setTitle] = useState("");
 	const [body, setBody] = useState("");
 	const [date, setDate] = useState("");

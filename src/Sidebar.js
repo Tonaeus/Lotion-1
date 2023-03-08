@@ -8,11 +8,10 @@ function Sidebar({
 	onDeleteNote,
 	activeNote,
 	setActiveNote,
-	onUpdateNote
+	updateId
 }) {
 	const sortedNotes = notes.sort((a, b) => b.lastModified - a.lastModified);
 		
-
 	const options = {
 		year: "numeric",
 		month: "long",
@@ -38,10 +37,9 @@ function Sidebar({
 			body: "",
 			lastModified: "",
 		};
-
 		setNotes([newNote, ...notes]);
 		setActiveNote(newNote.id);
-		navigate(`/notes/${newNote.id}/edit`);
+		navigate(`/notes/${1}/edit`);
 	};
 
 	const handleClick = (id) => {
@@ -66,7 +64,7 @@ function Sidebar({
 							>
 								<div className="sidebar-note-title">
 									<strong>{title}</strong>
-									<button onClick={(e) => onDeleteNote(id)}>Delete</button>
+									<button onClick={(e) => onDeleteNote(id, i)}>Delete</button>
 								</div>
 
 								<p>{body.substr(0, 20).replace(/<[^>]+>/g, '') + "..."}</p>

@@ -1,10 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-	BrowserRouter,
-	Routes,
-	Route,
-	useNavigate,
-} from "react-router-dom";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import "react-quill/dist/quill.snow.css";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
@@ -22,6 +17,10 @@ function App() {
 		localStorage.setItem("notes", JSON.stringify(notes));
 	}, [notes]);
 
+	useEffect(() => {
+		updateId();
+	}, [activeNote])
+	
 	const onDeleteNote = (noteId) => {
 		setNotes(notes.filter(({ id }) => id !== noteId));
 	};
@@ -42,6 +41,14 @@ function App() {
 		return notes.find(({ id }) => id === activeNote);
 	};
 
+	const updateId = () => {
+		const updatedNotesArr = notes.map((note, i) => {
+			return { ...note, id: i + 1 };
+		});
+		setNotes(updatedNotesArr);
+		setActiveNote(1);
+	};
+
 	return (
 		<BrowserRouter>
 			<Header show={show} setShow={setShow} />
@@ -54,7 +61,8 @@ function App() {
 					onDeleteNote={onDeleteNote}
 					activeNote={activeNote}
 					setActiveNote={setActiveNote}
-                    onUpdateNote={onUpdateNote}
+					onUpdateNote={onUpdateNote}
+					updateId={updateId}
 				/>
 
 				<div className="editor">
@@ -70,23 +78,32 @@ function App() {
 									activeNote={getActiveNote()}
 									onUpdateNote={onUpdateNote}
 									onDeleteNote={onDeleteNote}
+									updateId={updateId}
 								/>
 							}
 						></Route>
-                        <Route path="/notes/:tony" element={
+						<Route
+							path="/notes/:currId"
+							element={
 								<Main
 									activeNote={getActiveNote()}
 									onUpdateNote={onUpdateNote}
 									onDeleteNote={onDeleteNote}
+									updateId={updateId}
 								/>
-							}></Route>
-						<Route path="/notes/:currId/:mode" element={
+							}
+						></Route>
+						<Route
+							path="/notes/:currId/:mode"
+							element={
 								<Main
 									activeNote={getActiveNote()}
 									onUpdateNote={onUpdateNote}
 									onDeleteNote={onDeleteNote}
+									updateId={updateId}
 								/>
-							}></Route>
+							}
+						></Route>
 					</Routes>
 				</div>
 			</main>
