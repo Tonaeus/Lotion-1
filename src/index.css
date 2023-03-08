@@ -18,9 +18,12 @@ a {
 #root {
   display: flex;
   flex-direction: column;
-  background-color: aqua;
+  /* background-color: aqua; */
   width: 100vw;
 	height: 100vh;
+
+  max-width: 100vw;
+  max-height: 100vh;
 
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -78,7 +81,7 @@ main {
   display: flex;
   flex-direction: row;
   flex-grow: 1;
-  background-color: lightsalmon;
+  /* background-color: lightsalmon; */
 }
 
 /* Sidebar */
@@ -89,6 +92,7 @@ main {
   width: 250px;
   flex-shrink: 0;
   height: calc(100vh - 50px);
+  border-right: 1px solid lightgray;
 }
 
 .notes {
@@ -110,8 +114,15 @@ main {
   display: flex;
   justify-content: space-between;
 }
-.app-sidebar-note button {
-  color: crimson;
+.app-sidebar-note {
+  height: 75px;
+  padding-left:15px;
+  padding-right: 75px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid lightgray;
+  flex-grow: 0;
+  overflow: hidden;
 }
 .app-sidebar-note p {
   margin: 10px 0;
@@ -130,19 +141,46 @@ main {
   color: white;
 }
 
+.block-title {
+  font-size: 20px;
+  padding-bottom: 3px;
+}
+
+.add-note {
+  display: flex;
+  flex-grow: 0;
+  height: 50px;
+  width: 50px;
+}
+
+.note-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bar-label {
+  display: flex;
+  padding-left: 15px;
+  justify-content: start;
+  align-items: center;
+  font-size: 25px;
+}
+
 /* Editor */
 
 .quill {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  
 }
 
 .editor {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  background-color: red;
+  /* background-color: red; */
   min-width: 0;
 }
 
@@ -151,10 +189,102 @@ main {
 .toolbar {
   display: flex;
   flex-direction: row;
-  background-color: magenta;
-  height: 50px;
+  /* background-color: magenta; */
+  height: 75px;
   width: 100%;
+  border-top: 1px solid lightgray;
 }
 
+.toolbar2 {
+  display: flex;
+  flex-direction: row;
+  /* background-color: magenta; */
+  height: 75px;
+  width: 100%;
+  border-top: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
+}
 
+.editingBody {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 125px);
+  min-width: 0;
+}
 
+.ql-container.ql-snow{ 
+  border-left: none !important;
+  overflow-y: scroll;
+  height: calc(100% - 50px);
+}
+.ql-toolbar.ql-snow{ 
+  border-left: none !important;
+  height: 50px;
+}
+
+.toolbar-input {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 0;
+  padding-left: 15px;
+  justify-content: center;
+  padding-bottom: 5px;
+}
+
+.toolbar-display {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-bottom: 5px;
+}
+
+.toolbar-button {
+    height: 75px;
+    width: 75px;
+}
+
+.title {
+  height: 40px;
+  width: 500px;
+  font-size: 30px;
+  border: none;
+}
+.title:focus, input:focus{
+  outline: none;
+}
+
+.date {
+  display: flex;
+  width: 250px;
+  border: none;
+}
+
+.btn {
+  background-color: white;
+  border: none;
+}
+.btn:hover {
+  background-color: lightgray;
+}
+.no-active-note {
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
+  color: gray;
+  border-top: 1px solid lightgray;
+}
+
+.main-body {
+  display: flex;
+  flex-grow: 1;
+  padding: 15px;
+}
+
+.disabled-field {
+  pointer-events:none;
+}
+
+.date-display {
+  padding-left: 5px;
+}

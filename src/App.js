@@ -5,6 +5,7 @@ import Header from "./Header";
 import Sidebar from "./Sidebar";
 import Main from "./Main";
 
+
 function App() {
 	const [show, setShow] = useState(true);
 
@@ -17,10 +18,10 @@ function App() {
 		localStorage.setItem("notes", JSON.stringify(notes));
 	}, [notes]);
 
-	useEffect(() => {
-		updateId();
-	}, [activeNote])
-	
+	// useEffect(() => {
+	// 	updateId();
+	// }, [activeNote]);
+
 	const onDeleteNote = (noteId) => {
 		setNotes(notes.filter(({ id }) => id !== noteId));
 	};
@@ -41,13 +42,13 @@ function App() {
 		return notes.find(({ id }) => id === activeNote);
 	};
 
-	const updateId = () => {
-		const updatedNotesArr = notes.map((note, i) => {
-			return { ...note, id: i + 1 };
-		});
-		setNotes(updatedNotesArr);
-		setActiveNote(1);
-	};
+	// const updateId = () => {
+	// 	const updatedNotesArr = notes.map((note, i) => {
+	// 		return { ...note, id: i + 1 };
+	// 	});
+	// 	setNotes(updatedNotesArr);
+		
+	// };
 
 	return (
 		<BrowserRouter>
@@ -62,7 +63,7 @@ function App() {
 					activeNote={activeNote}
 					setActiveNote={setActiveNote}
 					onUpdateNote={onUpdateNote}
-					updateId={updateId}
+				
 				/>
 
 				<div className="editor">
@@ -76,9 +77,10 @@ function App() {
 							element={
 								<Main
 									activeNote={getActiveNote()}
+									setActiveNote={setActiveNote}
 									onUpdateNote={onUpdateNote}
 									onDeleteNote={onDeleteNote}
-									updateId={updateId}
+									
 								/>
 							}
 						></Route>
@@ -87,9 +89,10 @@ function App() {
 							element={
 								<Main
 									activeNote={getActiveNote()}
+									setActiveNote={setActiveNote}
 									onUpdateNote={onUpdateNote}
 									onDeleteNote={onDeleteNote}
-									updateId={updateId}
+									
 								/>
 							}
 						></Route>
@@ -98,9 +101,9 @@ function App() {
 							element={
 								<Main
 									activeNote={getActiveNote()}
+									setActiveNote={setActiveNote}
 									onUpdateNote={onUpdateNote}
 									onDeleteNote={onDeleteNote}
-									updateId={updateId}
 								/>
 							}
 						></Route>

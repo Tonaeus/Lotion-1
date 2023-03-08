@@ -5,10 +5,8 @@ function Sidebar({
 	show,
 	notes,
 	setNotes,
-	onDeleteNote,
 	activeNote,
 	setActiveNote,
-	updateId
 }) {
 	const sortedNotes = notes.sort((a, b) => b.lastModified - a.lastModified);
 		
@@ -39,12 +37,27 @@ function Sidebar({
 		};
 		setNotes([newNote, ...notes]);
 		setActiveNote(newNote.id);
-		navigate(`/notes/${1}/edit`);
+		// navigate(`/notes/${1}/edit`);
+		navigate(`/notes/${newNote.id}/edit`);
 	};
 
 	const handleClick = (id) => {
 		setActiveNote(id);
 		navigate(`/notes/${id}`);
+		console.log(activeNote);
+	}
+
+	const formatBody = (body) => {
+		const plainBody = body.replace(/<[^>]+>/g, '');
+		if (plainBody.length === 0) {
+			return "...";
+		}
+		else if (plainBody.length > 12) {
+			return plainBody.slice(0, 12) + "...";
+		}
+		else {
+			return plainBody;
+		}
 	}
 
 	return (
@@ -52,8 +65,10 @@ function Sidebar({
 			{show && (
 				<div className="menuBar">
 					<div className="notes">
-						<h1>Notes</h1>
-						<button onClick={onAddNote}>Add</button>
+						<h1 className="left bar-label">Notes</h1>
+						<div className="add-note">
+						<button className="right note-button btn" onClick={onAddNote}>Add</button>
+						</div>
 					</div>
 					<div className="selector">
 						{sortedNotes.map(({ id, title, body, lastModified }, i) => (
@@ -63,14 +78,14 @@ function Sidebar({
 								onClick={() => handleClick(id)}
 							>
 								<div className="sidebar-note-title">
-									<strong>{title}</strong>
-									<button onClick={(e) => onDeleteNote(id, i)}>Delete</button>
+									<strong className="block-title">{title}</strong>
+									{/* <button onClick={(e) => onDeleteNote(id, i)}>Delete</button> */}
 								</div>
-
-								<p>{body.substr(0, 20).replace(/<[^>]+>/g, '') + "..."}</p>
 								<small className="note-meta">
 									{formatDate(lastModified)}
 								</small>
+
+								<p>{formatBody(body)}</p>
 							</div>
 						))}
 					</div>

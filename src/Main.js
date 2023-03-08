@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import { useNavigate, useParams } from "react-router-dom";
 
-const Main = ({ activeNote, onUpdateNote, onDeleteNote, updateId }) => {
+const Main = ({ activeNote, setActive, onUpdateNote, onDeleteNote }) => {
 	const [title, setTitle] = useState("");
 	const [body, setBody] = useState("");
 	const [date, setDate] = useState("");
@@ -13,6 +13,9 @@ const Main = ({ activeNote, onUpdateNote, onDeleteNote, updateId }) => {
 			setBody(activeNote.body);
 			setDate(new Date().toISOString().slice(0, 16));
 		}
+		else {
+			navigate(`/notes`);
+		}
 	}, [activeNote]);
 
 	const navigate = useNavigate();
@@ -20,18 +23,17 @@ const Main = ({ activeNote, onUpdateNote, onDeleteNote, updateId }) => {
 
 	if (!activeNote)
 		return (
-			<div className="no-active-note">Select a note, or create a new one.</div>
+			<div className="no-active-note"><h1>Select a note or Create a new note</h1></div>
 		);
 
 	const onSave = () => {
 		onUpdateNote({
-			id: currId,
+			...activeNote,
 			title: title,
 			body: body,
 			lastModified: date,
 		});
 		navigate(`/notes/${activeNote.id}`);
-		console.log(activeNote);
 	};
 
 	const onDelete = (id) => {
@@ -62,31 +64,31 @@ const Main = ({ activeNote, onUpdateNote, onDeleteNote, updateId }) => {
 		return formatted;
 	};
 
-	if (mode) {
+	if (currId && mode) {
 		return (
 			<>
 				<div className="toolbar">
-					<div className="left">
+					<div className="left toolbar-input">
 						<input
 							type="text"
-							id="title"
+							className="title"
 							value={title}
 							onChange={(e) => setTitle(e.target.value)}
 							autoFocus
 						/>
 						<input
 							type="datetime-local"
-							id="date"
+							className="date"
 							value={date}
 							onChange={(e) => setDate(e.target.value)}
 						/>
 					</div>
 					<div className="right">
-						<button onClick={onSave}>Save</button>
-						<button onClick={() => onDelete(activeNote.id)}>Delete</button>
+						<button className="toolbar-button btn" onClick={onSave}>Save</button>
+						<button className="toolbar-button btn" onClick={() => onDelete(activeNote.id)}>Delete</button>
 					</div>
 				</div>
-				<div className="main-body">
+				<div className="editingBody">
 					<ReactQuill
 						id="body"
 						theme="snow"
@@ -101,14 +103,24 @@ const Main = ({ activeNote, onUpdateNote, onDeleteNote, updateId }) => {
 	else {
 		return (
 			<>
-				<div className="toolbar">
-					<div className="left">
-					<div dangerouslySetInnerHTML={{__html: activeNote.title}}></div>
-						{formatDate(activeNote.lastModified)}
+				<div className="toolbar2">
+					<div className="left toolbar-display">
+						<div className="left toolbar-input disabled-field">
+						<input
+							type="text"
+							className="title"
+							value={activeNote.title}
+							onChange={(e) => setTitle(e.target.value)}
+						/>
+						<small className="note-meta date-display">
+							{formatDate(activeNote.lastModified)}
+						</small>
 					</div>
+					</div>
+					
 					<div className="right">
-						<button onClick={onEdit}>Edit</button>
-						<button onClick={() => onDelete(activeNote.id)}>Delete</button>
+						<button className="toolbar-button btn" onClick={onEdit}>Edit</button>
+						<button className="toolbar-button btn" onClick={() => onDelete(activeNote.id)}>Delete</button>
 					</div>
 				</div>
 				<div className="main-body">
