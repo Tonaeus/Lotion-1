@@ -103,9 +103,6 @@ h5 {
 	padding-bottom: 5px;
 	border-bottom: 1px solid lightgray;
 	flex-grow: 0;
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
 }
 .app-sidebar-note p {
 	margin: 10px 0;

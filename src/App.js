@@ -59,7 +59,7 @@ function App() {
 					<Routes>
 						<Route
 							path="/"
-							element={<Default activeNote={getActiveNote()} />}
+							element={<Default />}
 						></Route>
 						<Route
 							path="/notes"
