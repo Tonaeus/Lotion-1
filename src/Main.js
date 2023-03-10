@@ -39,7 +39,7 @@ const Main = ({ activeNote, onUpdateNote, onDeleteNote, setEdit }) => {
 	};
 
 	const onDelete = (id) => {
-		const answer = window.confirm("Are you sure?");
+		const answer = window.confirm("Are you sure? Note cannot be recovered.");
 		if (answer) {
 			onDeleteNote(id);
 			navigate(`/notes`);

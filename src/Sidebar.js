@@ -32,7 +32,7 @@ function Sidebar({
 
 	const onAddNote = () => {
 		if (edit) {
-			const answer = window.confirm("Are you sure?");
+			const answer = window.confirm("Are you sure? Note is unsaved.");
 			if (answer) {
 				const newNote = {
 					id: uuid(),
@@ -61,7 +61,7 @@ function Sidebar({
 
 	const handleClick = (id) => {
 		if (edit) {
-			const answer = window.confirm("Are you sure?");
+			const answer = window.confirm("Are you sure? Note is unsaved.");
 			if (answer) {
 				setActiveNote(id);
 				navigate(`/notes/${id}`);
